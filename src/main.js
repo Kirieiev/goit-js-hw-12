@@ -6,7 +6,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { serchPicture } from './js/pixabay-api.js';
+import { serchPicture, ggg } from './js/pixabay-api.js';
 import { createPictureMarkup } from './js/render-functions.js';
 
 const form = document.querySelector('.form-inline');
@@ -58,7 +58,7 @@ async function handleSearch(event) {
   const picture = form.elements.picture.value.trim();
   currentSearchQuery = picture;
   queryParams.page = 1;
-  if (picture === '' || picture == null) {
+  if (picture === '' || picture === null) {
     iziToast.error({
       title: 'Error',
       message: `❌ Sorry, there are no images matching your search query. Please, try again!`,
@@ -76,6 +76,19 @@ async function handleSearch(event) {
   showLoadingIndicator();
   try {
     const { hits, totalHits } = await serchPicture(picture);
+    console.log(hits);
+    console.log(totalHits);
+    if (hits.length < maxElementPage) {
+      iziToast.error({
+        title: 'Error',
+        message: `"We're sorry, but you've reached the end of search results."`,
+        maxWidth: 300,
+        progressBar: true,
+        progressBarEasing: false,
+        position: 'topRight',
+        backgroundColor: '#ff6d60',
+      });
+    }
     if (hits && hits.length > 0) {
       queryParams.maxPage = Math.ceil(totalHits / queryParams.per_page);
       createPictureMarkup(hits, containerEl);
@@ -133,6 +146,8 @@ async function handleLoadMore() {
     console.log(err);
   } finally {
     enable(loadMoreBtn, preloader);
+    console.log(queryParams.page);
+    console.log(queryParams.maxPage);
     if (queryParams.page >= queryParams.maxPage) {
       hide(loadMoreBtn);
       iziToast.error({

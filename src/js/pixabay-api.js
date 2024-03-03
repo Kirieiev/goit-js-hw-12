@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const API_KEY = '42516548-e76607dce4d0f5a31ac9147e6';
 const URL = 'https://pixabay.com/api/';
+export const maxElementPage = 15;
 
 export function serchPicture(picture, page = 1) {
   return axios
@@ -14,7 +15,7 @@ export function serchPicture(picture, page = 1) {
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        per_page: 15,
+        per_page: maxElementPage,
         page,
       },
     })

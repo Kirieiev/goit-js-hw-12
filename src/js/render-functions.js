@@ -5,13 +5,14 @@ export function createPictureMarkup(hits, containerEl) {
     .map(
       ({
         webformatURL,
+        tags,
         likes,
         views,
         comments,
         downloads,
         largeImageURL,
       }) => `<a href="${largeImageURL}" class= "picture-link">
-    <img src = "${webformatURL}">
+    <img src = "${webformatURL}" alt="${tags}">
     <div class= "picture-content">
         <div class= "picture-text">
             <span class= "picture-title">Likes</span>
