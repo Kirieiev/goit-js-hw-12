@@ -6,7 +6,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { serchPicture, ggg } from './js/pixabay-api.js';
+import { serchPicture, maxElementPage } from './js/pixabay-api.js';
 import { createPictureMarkup } from './js/render-functions.js';
 
 const form = document.querySelector('.form-inline');
